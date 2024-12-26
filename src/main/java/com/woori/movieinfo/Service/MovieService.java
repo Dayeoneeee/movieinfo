@@ -25,6 +25,7 @@ import java.util.Optional;
 public class MovieService {
     @Value("${imgUploadLocation}")  //이미지가 저장 될 위치
     private String imgLocation;
+
     private final MovieRepository movieRepository;
     private final ModelMapper modelMapper;
     private final FileUpload fileUpload;    //파일 업로드 클래스 상속
@@ -35,12 +36,16 @@ public class MovieService {
     출력 : 해당 데이터들(list)과 page정보를 전달
     설명 : 요청한 페이지번호에 해당하는 데이터를 조회해서 전달
     --------------------------------*/
+    //@Operation(summary="영화 목록 조회",
+    //        description = "페이지번호를 이용한 영화 정보를 조회한다.")
     public Page<MovieDTO> list(Pageable page) {
         //1. 페이지 정보를 재 가공
         int currentPage = page.getPageNumber()-1;
         int pageSize = 10;
-        Pageable pageable = PageRequest.of(currentPage, pageSize,
-                Sort.by(Sort.Direction.DESC, "code"));
+        Pageable pageable = PageRequest.of(
+                currentPage, pageSize,
+                Sort.by(Sort.Direction.DESC, "code")
+        );
 
         //2. 조회
         Page<MovieEntity> movieEntities = movieRepository.findAll(pageable);

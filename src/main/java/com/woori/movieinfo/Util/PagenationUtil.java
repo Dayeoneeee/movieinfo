@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 //페이지 처리에 필요한 메소드를 담은 클래스
+@Component
 public class PagenationUtil {
     public static Map<String, Integer> Pagination(Page<?> page) {
         Map<String, Integer> map = new HashMap<>();     //결과를 저장할 변수
